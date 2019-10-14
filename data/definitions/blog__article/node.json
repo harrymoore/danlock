@@ -1,0 +1,34 @@
+{
+	"title": "Blog Article",
+	"_parent": "n:node",
+	"type": "object",
+	"properties": {
+		"title": {
+			"type": "string",
+			"title": "Title"
+		},
+		"description": {
+			"type": "string",
+			"title": "Description"
+		},
+		"image": {
+			"type": "object",
+			"title": "Main Article Image",
+			"_relator": {
+				"nodeType": "n:node"
+			}
+		},
+		"imageAlt": {
+			"type": "string",
+			"title": "Image Alt Text"
+		},
+		"copy": {
+			"type": "string",
+			"title": "Copy"
+		}
+	},
+	"description": "Blog Article",
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"_qname": "blog:article",
+	"_type": "d:type"
+}

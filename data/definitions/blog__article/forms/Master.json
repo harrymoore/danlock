@@ -1,0 +1,40 @@
+{
+	"title": "Blog Article",
+	"engineId": "alpaca1",
+	"fields": {
+		"title": {
+			"type": "text",
+			"label": "Title",
+			"helper": "SEO Title",
+			"required": true,
+			"default": ""
+		},
+		"description": {
+			"type": "textarea",
+			"label": "Description",
+			"helper": "SEO Description",
+			"required": true,
+			"default": ""
+		},
+		"image": {
+			"type": "related-content",
+			"label": "Main Article Image",
+			"required": false,
+			"uploadPath": "/images",
+			"maxNumberOfFiles": 1,
+			"fileTypes": "(\\.|/)(gif|jpe?g|png|svg)$"
+		},
+		"imageAlt": {
+			"type": "text",
+			"label": "Image Alt Text",
+			"required": true,
+			"default": ""
+		},
+		"copy": {
+			"type": "ckeditor",
+			"label": "Blog Article Copy",
+			"required": true	
+		}
+	},
+	"_type": "n:form"
+}
