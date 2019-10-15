@@ -1,0 +1,102 @@
+{
+    "title": "Blog Publish",
+    "description": "Manage approval and publish process for Copywriters Blog content",
+    "id": "blog-publish",
+    "version": 1,
+    "deployed": false,
+    "head": false,
+    "handlers": {
+        "START": [
+            {
+                "type": "script",
+                "config": {
+                    "script": "workflowData.originalChangesetIds = {}; for (var i = 0; i < documents.length; i++) { workflowData.originalChangesetIds[documents[i].id] = documents[i].changesetId; }"
+                }
+            }
+        ]
+    },
+    "nodes": {
+        "start": {
+            "type": "start",
+            "transitions": {
+                "start": "decision1"
+            }
+        },
+        "decision1": {
+            "type": "decision",
+            "transitions": {
+                "already-in-draft": {
+                    "when": "documents[0].getFeature('f:publishable').state === 'draft'",
+                    "transition": "publish-to-live"
+                },
+                "default": "work_on_draft"
+            }
+        },
+        "work_on_draft": {
+            "type": "participant",
+            "title": "Work on Draft Content",
+            "swimlane": "initiator",
+            "transitions": {
+                "publish": "publish-to-live",
+                "cancel": "cancel"
+            },
+            "handlers": {
+                "ENTER": [
+                    {
+                        "type": "setProperties",
+                        "config": {
+                            "properties": [
+                                {
+                                    "name": "_features/f:publishable/state",
+                                    "value": "draft"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "publish-to-live": {
+            "type": "passthru",
+            "title": "Publish to Live",
+            "transitions": {
+                "next": "end"
+            },
+            "handlers": {
+                "ENTER": [
+                    {
+                        "type": "setProperties",
+                        "config": {
+                            "properties": [
+                                {
+                                    "name": "_features/f:publishable/state",
+                                    "value": "live"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "cancel": {
+            "type": "passthru",
+            "title": "Cancel",
+            "transitions": {
+                "next": "end"
+            },
+            "handlers": {
+                "ENTER": [
+                    {
+                        "type": "script",
+                        "config": {
+                            "script": "for (var i = 0; i < documents.length; i++) { var originalChangesetId = workflowData.originalChangesetIds[documents[i].id]; if (originalChangesetId) { documents[i].restoreFromVersion(originalChangesetId); } }"
+                        }
+                    }
+                ]
+            }
+        },
+        "end": {
+            "type": "end"
+        }
+    }
+}
