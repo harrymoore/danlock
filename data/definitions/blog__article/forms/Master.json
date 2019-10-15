@@ -34,7 +34,13 @@
 			"type": "ckeditor",
 			"label": "Blog Article Copy",
 			"required": true	
-		}
+        },
+        "validation-state": {
+            "hidden": true
+        },
+        "last-error": {
+            "hidden": true
+        }
 	},
 	"_type": "n:form"
 }

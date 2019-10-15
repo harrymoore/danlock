@@ -1,0 +1,25 @@
+{
+    "title": "Validation State",
+    "type": "object",
+    "properties": {
+        "validation-state": {
+            "type": "string",
+            "title": "Validation State",
+            "enum": [
+                "valid",
+                "invalid",
+                "requires-validation"
+            ],
+            "default": "invalid"
+        },
+        "last-error": {
+            "type": "string",
+            "title": "Validation Error Message",
+            "default": "0"
+        }
+    },
+    "description": "External service validation state",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "_qname": "validation:validation-state",
+    "_type": "d:feature"
+}

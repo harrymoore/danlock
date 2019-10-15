@@ -26,7 +26,12 @@
 			"type": "string",
 			"title": "Copy"
 		}
-	},
+    },
+    "mandatoryFeatures": {
+        "validation:validation-state": {
+            "enabled": true
+        }
+    },
 	"description": "Blog Article",
 	"$schema": "http://json-schema.org/draft-04/schema#",
 	"_qname": "blog:article",
